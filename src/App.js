@@ -11,7 +11,9 @@ class App extends Component {
     return (
       <div>
         <Header height={"100"} />
+
         <AppRouter />
+
       </div>
     );
   }
