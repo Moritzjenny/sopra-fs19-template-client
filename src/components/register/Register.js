@@ -23,11 +23,11 @@ const Form = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 60%;
-  height: 535px;
   font-size: 16px;
   font-weight: 300;
   padding-left: 37px;
   padding-right: 37px;
+  padding-bottom: 30px;
   border-radius: 5px;
   background: linear-gradient(rgb(27, 124, 186), rgb(2, 46, 101));
   transition: opacity 0.5s ease, transform 0.5s ease;
@@ -80,26 +80,27 @@ class Register extends React.Component {
             body: JSON.stringify({
                 username: this.state.username,
                 name: this.state.name,
-                password: this.state.password
+                password: this.state.password,
+                birthday: this.state.birthday
             })
         })
-            .then(response => response.json())
-            .then(returnedUser => {
-                //handle errorresponses
-                if (returnedUser.status === 400) {
-                    this.setState({"requestValid": false});
-                    return;
-                }
-                else if (returnedUser.status !== "OFFLINE") throw new Error(returnedUser.status + " - " + returnedUser.message);
-                this.props.history.push(`/login`);
-            })
-            .catch(err => {
-                if (err.message.match(/Failed to fetch/)) {
-                    alert("The server cannot be reached. Did you start it?");
-                } else {
-                    alert(`Something went wrong during the login: ${err.message}`);
-                }
-            });
+        .then(response => response.json())
+        .then(returnedUser => {
+            //handle errorresponses
+            if (returnedUser.status === 409) {
+                this.setState({"requestValid": false});
+                return;
+            }
+
+            this.props.history.push(`/login`);
+        })
+        .catch(err => {
+            if (err.message.match(/Failed to fetch/)) {
+                alert("The server cannot be reached. Did you start it?");
+            } else {
+                alert(`Something went wrong during the login: ${err.message}`);
+            }
+        });
     }
     login() {
         this.props.history.push(`/login`)
@@ -146,10 +147,10 @@ class Register extends React.Component {
                         />
                         <Label>Password</Label>
                         <InputField type="password"
-                                    placeholder="Enter here.."
-                                    onChange={e => {
-                                        this.handleInputChange("password", e.target.value);
-                                    }}
+                            placeholder="Enter here.."
+                            onChange={e => {
+                                this.handleInputChange("password", e.target.value);
+                            }}
 
                         />
                         <Label>Repeat Password</Label>
@@ -165,16 +166,23 @@ class Register extends React.Component {
                                         }
                                     }}
                         />
+                        <Label>Birthday</Label>
+                        <InputField type="date"
+                                    placeholder="Enter here.."
+                                    onChange={e => {
+                                        this.handleInputChange("birthday", e.target.value);
+                                    }}
+                        />
                         <ButtonContainer>
                             <Button
-                                disabled={!this.state.username || !this.state.name || !this.state.passwordValid || !this.state.password}
+                                disabled={!this.state.username || !this.state.name || !this.state.passwordValid || !this.state.password || !this.state.birthday}
                                 width="50%"
                                 onClick={() => {
                                     this.register();
                                 }}
                             >
                                 Register
-                            </Button>&nbsp;&nbsp;&nbsp;
+                            </Button>
                             <Button
                                 width="20%"
                                 onClick={() => {

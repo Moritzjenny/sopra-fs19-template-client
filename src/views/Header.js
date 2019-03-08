@@ -11,16 +11,16 @@ import { ReactLogo } from "./ReactLogo";
 const Container = styled.div`
   height: ${props => props.height}px;
   background: ${props => props.background};
-  display: flow;
+  display: flex;
   justify-content: center;
   align-items: center;
 `;
-
 const Title = styled.h1`
   font-weight: bold;
   color: white;
   text-align: center;
 `;
+
 /**
  * This is an example of a Functional and stateless component (View) in React. Functional components are not classes and thus don't handle internal state changes.
  * Conceptually, components are like JavaScript functions. They accept arbitrary inputs (called “props”) and return React elements describing what should appear on the screen.
@@ -32,7 +32,7 @@ const Title = styled.h1`
 const Header = props => {
   return (
     <Container height={props.height}>
-      <Title>Santorini :D</Title>
+      <Title>Don't mess with jkminder!</Title>
       <ReactLogo width={60} height={60} />
     </Container>
   );
