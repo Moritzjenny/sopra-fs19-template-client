@@ -33,14 +33,17 @@ class Game extends React.Component {
   }
 
   logout(username) {
-    localStorage.removeItem("token");
     this.props.history.push("/login");
     fetch(`${getDomain()}/users/${username}/logout?token=${localStorage.getItem("token")}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
       }
-    })
+    });
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("birthday");
+    localStorage.removeItem("id");
   }
 
   showProfile(user) {

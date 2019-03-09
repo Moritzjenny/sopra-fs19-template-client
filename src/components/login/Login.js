@@ -109,6 +109,10 @@ class Login extends React.Component {
                 const user = new User(returnedUser);
                 // store the token into the local storage
                 localStorage.setItem("token", user.token);
+                localStorage.setItem("username", user.username);
+                localStorage.setItem("birthday", user.birthday);
+                localStorage.setItem("id", user.id);
+
                 // user login successfully worked --> navigate to the route /game in the GameRouter
                 this.props.history.push(`/game`);
             })
