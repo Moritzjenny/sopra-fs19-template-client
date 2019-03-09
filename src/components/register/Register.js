@@ -72,6 +72,7 @@ class Register extends React.Component {
         }
     }
     register(){
+
         fetch(`${getDomain()}/users`, {
             method: "POST",
             headers: {
