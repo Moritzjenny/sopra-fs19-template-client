@@ -92,9 +92,7 @@ class Game extends React.Component {
                   <PlayerContainer key={user.id} onClick={() => {
                     this.showProfile(user)
                   }} >
-
                     <Player user={user}/>
-
                   </PlayerContainer>
                 );
               })}
