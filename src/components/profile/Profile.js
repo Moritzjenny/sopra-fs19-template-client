@@ -54,7 +54,7 @@ class Profile extends React.Component {
                 <h2>{'User: ' +this.state.user.username}</h2>
                 <p>{'Status: ' + this.state.user.status}</p>
                 <p>{this.state.user.creationDate === null ? this.state.user.creationDate : 'Creation Date: ' + new Date(this.state.user.creationDate).toLocaleDateString("de-DE")}</p>
-                <p>{'Birthday: ' +this.state.user.birthday === null ? this.state.user.birthday : 'Birthday: ' + new Date(this.state.user.birthday).toLocaleDateString("de-DE")}</p>
+                <p>{this.state.user.birthday === null ? this.state.user.birthday : 'Birthday: ' + new Date(this.state.user.birthday).toLocaleDateString("de-DE")}</p>
                 <ButtonContainer>
                 <Button
                     width="20%"
