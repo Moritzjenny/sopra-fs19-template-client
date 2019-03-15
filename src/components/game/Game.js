@@ -6,6 +6,7 @@ import Player from "../../views/Player";
 import { Spinner } from "../../views/design/Spinner";
 import { Button } from "../../views/design/Button";
 import { withRouter } from "react-router-dom";
+import Unity, { UnityContent } from "react-unity-webgl";
 
 const Container = styled(BaseContainer)`
   color: white;
@@ -30,6 +31,11 @@ class Game extends React.Component {
     this.state = {
       users: null
     };
+
+    this.unityContent = new UnityContent(
+        "../Unity/Build/Desktop.json",
+        "../Unity/Build/UnityLoader.js"
+    );
   }
 
   logout() {
@@ -81,32 +87,35 @@ class Game extends React.Component {
   render() {
     return (
       <Container>
-        <h2>Users</h2>
-        {!this.state.users ? (
-          <Spinner />
-        ) : (
-          <div>
-            <Users>
-              {this.state.users.map(user => {
-                return (
-                  <PlayerContainer key={user.id} onClick={() => {
-                    this.showProfile(user)
-                  }} >
-                    <Player user={user}/>
-                  </PlayerContainer>
-                );
-              })}
-            </Users>
-            <Button
-              width="100%"
-              onClick={() => {
-                this.logout();
-              }}
-            >
-              Logout
-            </Button>
-          </div>
-        )}
+        <Unity unityContent={this.unityContent} />
+        <Container>
+          <h2>Users</h2>
+          {!this.state.users ? (
+            <Spinner />
+          ) : (
+            <div>
+              <Users>
+                {this.state.users.map(user => {
+                  return (
+                    <PlayerContainer key={user.id} onClick={() => {
+                      this.showProfile(user)
+                    }} >
+                      <Player user={user}/>
+                    </PlayerContainer>
+                  );
+                })}
+              </Users>
+              <Button
+                width="100%"
+                onClick={() => {
+                  this.logout();
+                }}
+              >
+                Logout
+              </Button>
+            </div>
+          )}
+        </Container>
       </Container>
     );
   }

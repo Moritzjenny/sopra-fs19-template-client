@@ -5,6 +5,7 @@ import {withRouter} from "react-router-dom";
 import {ButtonContainer, Label} from "../login/Login";
 import styled from "styled-components";
 import {getDomain} from "../../helpers/getDomain";
+import Unity3dPlayer from 'react-unity-player';
 
 import User from "../shared/models/User";
 
@@ -195,6 +196,7 @@ class Register extends React.Component {
                         </ButtonContainer>
                     </Form>
                 </FormContainer>
+
             </BaseContainer>
         );
     }

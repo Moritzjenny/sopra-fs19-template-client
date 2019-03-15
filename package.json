@@ -6,8 +6,11 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1",
-    "styled-components": "^4.1.2"
+    "react-scripts": "^2.1.8",
+    "react-unity-player": "^1.0.3",
+    "react-unity-webgl": "^7.0.9",
+    "styled-components": "^4.1.2",
+    "unity": "^1.0.8"
   },
   "scripts": {
     "dev": "react-scripts start",
