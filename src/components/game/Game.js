@@ -11,6 +11,7 @@ import Unity, { UnityContent } from "react-unity-webgl";
 const Container = styled(BaseContainer)`
   color: white;
   text-align: center;
+  width: 80%;
 `;
 
 const Users = styled.ul`
@@ -88,34 +89,32 @@ class Game extends React.Component {
     return (
       <Container>
         <Unity unityContent={this.unityContent} />
-        <Container>
-          <h2>Users</h2>
-          {!this.state.users ? (
-            <Spinner />
-          ) : (
-            <div>
-              <Users>
-                {this.state.users.map(user => {
-                  return (
-                    <PlayerContainer key={user.id} onClick={() => {
-                      this.showProfile(user)
-                    }} >
-                      <Player user={user}/>
-                    </PlayerContainer>
-                  );
-                })}
-              </Users>
-              <Button
-                width="100%"
-                onClick={() => {
-                  this.logout();
-                }}
-              >
-                Logout
-              </Button>
-            </div>
-          )}
-        </Container>
+        <h2>Users</h2>
+        {!this.state.users ? (
+          <Spinner />
+        ) : (
+          <div>
+            <Users>
+              {this.state.users.map(user => {
+                return (
+                  <PlayerContainer key={user.id} onClick={() => {
+                    this.showProfile(user)
+                  }} >
+                    <Player user={user}/>
+                  </PlayerContainer>
+                );
+              })}
+            </Users>
+            <Button
+              width="100%"
+              onClick={() => {
+                this.logout();
+              }}
+            >
+              Logout
+            </Button>
+          </div>
+        )}
       </Container>
     );
   }
