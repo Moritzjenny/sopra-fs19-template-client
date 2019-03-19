@@ -6,7 +6,8 @@ import Player from "../../views/Player";
 import { Spinner } from "../../views/design/Spinner";
 import { Button } from "../../views/design/Button";
 import { withRouter } from "react-router-dom";
-import Unity, { UnityContent } from "react-unity-webgl";
+import UnityDefault, { UnityContent } from "react-unity-webgl";
+import {ButtonContainer} from "../login/Login";
 
 const Container = styled(BaseContainer)`
   color: white;
@@ -18,6 +19,12 @@ const Users = styled.ul`
   list-style: none;
   padding-left: 0;
 `;
+export const Label = styled.label`
+  color: white;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  display: ${props => (props.display)};
+`;
 
 const PlayerContainer = styled.li`
   display: flex;
@@ -26,17 +33,36 @@ const PlayerContainer = styled.li`
   justify-content: center;
 `;
 
+const Unity = styled(UnityDefault)`
+  & > canvas {
+    display: block
+  }
+`;
+
 class Game extends React.Component {
   constructor() {
     super();
     this.state = {
       users: null
     };
+    this.setState({
+      click: false
+    });
 
     this.unityContent = new UnityContent(
-        "../Unity/Build/Desktop.json",
+        "../Unity/Build/Unity.json",
         "../Unity/Build/UnityLoader.js"
     );
+    this.unityContent.on("InternClick", () => {
+      this.setState({
+        click: true
+      });
+      setTimeout(() => {
+        this.setState({
+          click: false
+        });
+      }, 300);
+    });
   }
 
   logout() {
@@ -56,6 +82,16 @@ class Game extends React.Component {
   showProfile(user) {
     this.props.history.push("/profile/" + user.id)
   }
+
+  click(){
+    this.unityContent.send(
+        "UiController",
+        "OnClick"
+    );
+  }
+
+
+
 
   componentDidMount() {
     fetch(`${getDomain()}/users?token=${localStorage.getItem("token")}`, {
@@ -105,6 +141,7 @@ class Game extends React.Component {
                 );
               })}
             </Users>
+            <ButtonContainer>
             <Button
               width="100%"
               onClick={() => {
@@ -113,8 +150,21 @@ class Game extends React.Component {
             >
               Logout
             </Button>
+            <Button
+                width="100%"
+                onClick={() => {
+                  this.click();
+                }}
+            >
+              Click!
+            </Button>
+            </ButtonContainer>
+            <Label display={this.state.click ? "" : "none"}>
+              Clicker!
+            </Label>
           </div>
         )}
+
       </Container>
     );
   }
