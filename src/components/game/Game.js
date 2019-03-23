@@ -12,7 +12,7 @@ import {ButtonContainer} from "../login/Login";
 const Container = styled(BaseContainer)`
   color: white;
   text-align: center;
-  width: 80%;
+  width: 95%;
 `;
 
 const Users = styled.ul`
